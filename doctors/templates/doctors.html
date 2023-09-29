@@ -25,12 +25,18 @@
             // Function to load tasks from the server
             function loadTasks() {
                 $.ajax({
-                    url: '/get_tasks/',
+                    url: '/doctors/get_doctors_json',
                     method: 'GET',
                     success: function (data) {
+                        // console.log(Object.entries(data))
+                        // console.log(Object.entries(data)[0][1])
                         $('#DoctorsList').empty();
                         data.forEach(function (doctor) {
-                            $('#DoctorsList').append('<tr><td>' + doctor.name + '</td></tr>');
+                            // let doctors_all = "";
+                            // for (i = 0; i < length(doctor); i++) {
+                            // }
+                            // doctors_all += 
+                            $('#DoctorsList').append('<tr><td>' + Object.entries(doctor)[1] + '</td></tr>');
                         });
                     }
                 });
@@ -43,7 +49,7 @@
             $('#addTaskBtn').click(function () {
                 var title = $('#taskInput').val();
                 $.ajax({
-                    url: '/add_task/',
+                    url: '/doctors/add_doctor/',
                     method: 'POST',
                     data: { title: title },
                     success: function () {

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.http import HttpResponse
 from .models import Doctors
+import collections
 
 
 # def index(request):
@@ -50,21 +51,24 @@ def get_doctor_view(request):
     return HttpResponse(s)
 
 
-def get_doctors_json(request):
-    s = ""
-    x = Doctors.objects.all()
-    for t in x:
-        s += str(t.id)
-        s += " "
-    s += "<br>"
-    for t in x:
-        s += t.name
-        s += " "
+def add_doctor(request):
+    pass
 
-    if request.method == "GET":
-        return HttpResponse("Success!")  # Sending an success response
-    else:
-        return HttpResponse("Request method is not a GET")
+
+def get_doctors_json(request):
+    docs = {}
+    temp = ""
+    doctors_list = Doctors.objects.all()
+    for i in doctors_list:
+        temp = i.name + " " + str(i.age) + " " + i.address + " " + str(i.salary)
+        docs[i.id] = temp
+        temp = ""
+    return JsonResponse(docs)
+
+    # if request.method == "GET":
+    #     return HttpResponse("Success!")  # Sending an success response
+    # else:
+    #     return HttpResponse("Request method is not a GET")
 
 
 def doctors_page(request):
