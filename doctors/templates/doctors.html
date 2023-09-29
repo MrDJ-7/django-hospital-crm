@@ -31,13 +31,21 @@
                         // console.log(Object.entries(data))
                         // console.log(Object.entries(data)[0][1])
                         $('#DoctorsList').empty();
-                        data.forEach(function (doctor) {
-                            // let doctors_all = "";
-                            // for (i = 0; i < length(doctor); i++) {
-                            // }
-                            // doctors_all += 
-                            $('#DoctorsList').append('<tr><td>' + Object.entries(doctor)[1] + '</td></tr>');
-                        });
+                        // data.forEach(function (doctor) {
+                        //     // let doctors_all = "";
+                        //     // for (i = 0; i < length(doctor); i++) {
+                        //     // }
+                        //     // doctors_all += 
+                        //     $('#DoctorsList').append('<tr><td>' + Object.entries(doctor)[1] + '</td></tr>');
+                        // });
+                        let doctors_all = "";
+                        console.log(data)
+                        for (i = 0; i < Object.entries(data).length; i++) {
+                            doctors_all += '<tr><td>' + Object.entries(data)[i][1] + '</td></tr>';
+                            console.log("AAAAAAAAAAAAAAA")
+                        }
+                        console.log(doctors_all)
+                        $('#DoctorsList').append(doctors_all);
                     }
                 });
             }
