@@ -24,12 +24,13 @@ Including another URLconf
 # ]
 from django.contrib import admin
 from django.urls import include, path
-#from doctors import urls as my_urls
+
+# from doctors import urls as my_urls
 
 urlpatterns = [
     path("doctors/", include("doctors.urls")),
-    path('admin/', admin.site.urls),
- ]
+    path("admin/", admin.site.urls),
+]
 
 # from django.contrib import admin
 # from django.urls import include, path
@@ -38,6 +39,3 @@ urlpatterns = [
 #     path("polls/", include("polls.urls")),
 #     path("admin/", admin.site.urls),
 # ]
-
-
-

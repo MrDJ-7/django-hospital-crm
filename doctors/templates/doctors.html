@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Doctors Page</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <h1>Doctors Page</h1>
+    <div>
+        <input type="text" id="taskInput" placeholder="Name Doctor">
+        <button id="addTaskBtn">Add Doctor</button>
+    </div>
+    <table id="DoctorsList">
+        <!-- Tasks will be displayed here -->
+    </table>
+    <script>
+        $(document).ready(function () {
+            // Set CSRF token for AJAX requests
+            $.ajaxSetup({
+                headers: { "X-CSRFToken": "{{ csrf_token }}" }
+            });
+
+            // Function to load tasks from the server
+            function loadTasks() {
+                $.ajax({
+                    url: '/get_tasks/',
+                    method: 'GET',
+                    success: function (data) {
+                        $('#DoctorsList').empty();
+                        data.forEach(function (doctor) {
+                            $('#DoctorsList').append('<tr><td>' + doctor.name + '</td></tr>');
+                        });
+                    }
+                });
+            }
+
+            // Load tasks on page load
+            loadTasks();
+
+            // Function to add a new task
+            $('#addTaskBtn').click(function () {
+                var title = $('#taskInput').val();
+                $.ajax({
+                    url: '/add_task/',
+                    method: 'POST',
+                    data: { title: title },
+                    success: function () {
+                        $('#taskInput').val('');
+                        loadTasks();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

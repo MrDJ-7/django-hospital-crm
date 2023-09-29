@@ -1,5 +1,6 @@
+from django.shortcuts import render
+from django.http import JsonResponse
 from django.http import HttpResponse
-
 from .models import Doctors
 
 
@@ -47,3 +48,39 @@ def get_doctor_view(request):
         s += " "
 
     return HttpResponse(s)
+
+
+def get_doctors_json(request):
+    s = ""
+    x = Doctors.objects.all()
+    for t in x:
+        s += str(t.id)
+        s += " "
+    s += "<br>"
+    for t in x:
+        s += t.name
+        s += " "
+
+    if request.method == "GET":
+        return HttpResponse("Success!")  # Sending an success response
+    else:
+        return HttpResponse("Request method is not a GET")
+
+
+def doctors_page(request):
+    return render(request, "doctors.html")
+
+
+def get_doctors(request):
+    doctors_l = Doctors.objects.all()
+    doctors_list = [
+        {"id": doctors_temp.id, "name": doctors_temp.name} for doctors_temp in doctors_l
+    ]
+    return JsonResponse(doctors_list, safe=False)
+
+
+# def add_task(request):
+#     if request.method == "POST":
+#         title = request.POST.get("title")
+#         task = Doctors.objects.create(title=title)
+#         return JsonResponse({"status": "success"})
