@@ -88,3 +88,21 @@ def get_doctors(request):
 #         title = request.POST.get("title")
 #         task = Doctors.objects.create(title=title)
 #         return JsonResponse({"status": "success"})
+
+
+def get_doctor_json(request):
+    id = 1
+    doctor_entry = Doctors.objects.get(pk=id)
+    doctor_entry_srt = (
+        doctor_entry.name
+        + " "
+        + str(doctor_entry.age)
+        + " "
+        + doctor_entry.address
+        + " "
+        + str(doctor_entry.salary)
+    )
+    return JsonResponse(doctor_entry_srt, safe=False)
+
+def doctor_page(request):
+    

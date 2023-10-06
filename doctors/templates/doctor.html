@@ -1,20 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Doctors Page</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        div {
+            display: block;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 
 <body>
-    <h1>Doctors Page</h1>
-    <div>
-        <input type="text" id="taskInput" placeholder="Name Doctor">
-        <button id="addTaskBtn">Add Doctor</button>
-    </div>
-    <table id="DoctorsList">
-        <!-- Tasks will be displayed here -->
-    </table>
+    <h1>doctor</h1>
+    <input type="hidden" value="{{ id }}" id="doctor_id">
+    <div id="doctor_name"></div>
+    age <div id="doctor_age"></div>
+    adress <div id="doctor_adress"></div>
+    salary <div id="doctor_salary"></div>
+
     <script>
         $(document).ready(function () {
             // Set CSRF token for AJAX requests
@@ -24,8 +29,9 @@
 
             // Function to load tasks from the server
             function loadTasks() {
+
                 $.ajax({
-                    url: '/doctors/get_doctors_json',
+                    url: '/doctor/get_doctors_json',
                     method: 'GET',
                     success: function (data) {
                         // console.log(Object.entries(data))
