@@ -8,6 +8,10 @@ urlpatterns = [
     path("doctors_page/", views.doctors_page, name="doctors_page"),
     path("get_doctors_json/", views.get_doctors_json, name="get_doctors_json"),
     path("add_doctor/", views.get_doctors_json, name=" "),
-    path("doctor_page/", views.doctor_page, name="doctor_page"),
-    path("get_doctor_json/", views.get_doctor_json, name="get_doctor_json"),
+    path("doctor_page/<int:doctor_id>/", views.doctor_page, name="doctor_page"),
+    path(
+        "get_doctor_json/<int:doctor_id>/",
+        views.get_doctor_json,
+        name="get_doctor_json",
+    ),
 ]

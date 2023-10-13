@@ -2,9 +2,10 @@
 <html lang="en">
 
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         div {
-            display: block;
+            display: inline;
         }
     </style>
     <meta charset="UTF-8">
@@ -13,9 +14,10 @@
 </head>
 
 <body>
-    <h1>doctor</h1>
-    <input type="hidden" value="{{ id }}" id="doctor_id">
-    <div id="doctor_name"></div>
+    <input type="hidden" value="{{ doctor_id }}" id="doctor_id"> <!-- $("doctor_id").val(); -->
+    <h1>doctor <div id="doctor_name"></div>
+    </h1>
+
     age <div id="doctor_age"></div>
     adress <div id="doctor_adress"></div>
     salary <div id="doctor_salary"></div>
@@ -29,29 +31,20 @@
 
             // Function to load tasks from the server
             function loadTasks() {
-
+                doctor_id = $("#doctor_id").val();
+                console.log($("#doctor_id").val());
+                my_url = '/doctors/get_doctor_json/' + doctor_id;
+                console.log(my_url);
                 $.ajax({
-                    url: '/doctor/get_doctors_json',
+                    url: '/doctors/get_doctor_json/' + doctor_id,
                     method: 'GET',
                     success: function (data) {
-                        // console.log(Object.entries(data))
-                        // console.log(Object.entries(data)[0][1])
                         $('#DoctorsList').empty();
-                        // data.forEach(function (doctor) {
-                        //     // let doctors_all = "";
-                        //     // for (i = 0; i < length(doctor); i++) {
-                        //     // }
-                        //     // doctors_all += 
-                        //     $('#DoctorsList').append('<tr><td>' + Object.entries(doctor)[1] + '</td></tr>');
-                        // });
-                        let doctors_all = "";
                         console.log(data)
-                        for (i = 0; i < Object.entries(data).length; i++) {
-                            doctors_all += '<tr><td>' + Object.entries(data)[i][1] + '</td></tr>';
-                            // console.log("AAAAAAAAAAAAAAA")
-                        }
-                        console.log(doctors_all)
-                        $('#DoctorsList').append(doctors_all);
+                        $('#doctor_name').append(data[0]);
+                        $('#doctor_age').append(data[1]);
+                        $('#doctor_adress').append(data[2]);
+                        $('#doctor_salary').append(data[3]);
                     }
                 });
             }
@@ -59,19 +52,6 @@
             // Load tasks on page load
             loadTasks();
 
-            // Function to add a new task
-            $('#addTaskBtn').click(function () {
-                var title = $('#taskInput').val();
-                $.ajax({
-                    url: '/doctors/add_doctor/',
-                    method: 'POST',
-                    data: { title: title },
-                    success: function () {
-                        $('#taskInput').val('');
-                        loadTasks();
-                    }
-                });
-            });
         });
     </script>
 </body>

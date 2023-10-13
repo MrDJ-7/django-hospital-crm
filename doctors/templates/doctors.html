@@ -41,7 +41,7 @@
                         let doctors_all = "";
                         console.log(data)
                         for (i = 0; i < Object.entries(data).length; i++) {
-                            doctors_all += '<tr><td>' + Object.entries(data)[i][1] + '</td></tr>';
+                            doctors_all += '<tr><td><a href="/doctors/doctor_page/' + (i + 1) + '/">' + Object.entries(data)[i][1] + '</a></td></tr>';
                             // console.log("AAAAAAAAAAAAAAA")
                         }
                         console.log(doctors_all)

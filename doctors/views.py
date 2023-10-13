@@ -1,7 +1,9 @@
 from django.shortcuts import render
+from django.template import Template, Context
 from django.http import JsonResponse
 from django.http import HttpResponse
 from .models import Doctors
+from django.template.response import TemplateResponse
 import collections
 
 
@@ -90,19 +92,20 @@ def get_doctors(request):
 #         return JsonResponse({"status": "success"})
 
 
-def get_doctor_json(request):
-    id = 1
-    doctor_entry = Doctors.objects.get(pk=id)
-    doctor_entry_srt = (
-        doctor_entry.name
-        + " "
-        + str(doctor_entry.age)
-        + " "
-        + doctor_entry.address
-        + " "
-        + str(doctor_entry.salary)
-    )
-    return JsonResponse(doctor_entry_srt, safe=False)
+def get_doctor_json(request, doctor_id):
+    # id = 1
+    doctor_entry = Doctors.objects.get(pk=doctor_id)
+    doctor_entry_l = [
+        doctor_entry.name,
+        str(doctor_entry.age),
+        doctor_entry.address,
+        str(doctor_entry.salary),
+    ]
+    return JsonResponse(doctor_entry_l, safe=False)
 
-def doctor_page(request):
-    
+
+def doctor_page(request, doctor_id):
+    # doctor_id = request.GET.get("doctor_id", "")
+    context = {"doctor_id": doctor_id}
+    # return TemplateResponse(request, "doctor.html", {doctor_id: doctor_id})
+    return render(request, "doctor.html", context)
