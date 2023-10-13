@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="http://127.0.0.1:8000/doctors/add_doctor/" method="post">
+        {% csrf_token %}
+        <div>
+            <label for="doctor_name">Name:</label>
+            <input type="text" id="doctor_name" name="doctor_name" placeholder="Booker">
+        </div>
+        <br>
+        <div>
+            <label for="doctor_age">Age:</label>
+            <input type="number" id="doctor_age" name="doctor_age" placeholder="46">
+        </div>
+        <br>
+        <div>
+            <label for="doctor_adress">Adress:</label>
+            <input type="text" id="doctor_adress" name="doctor_adress" placeholder="baker Streat 221b">
+        </div>
+        <br>
+        <div>
+            <label for="doctor_salary">Salary:</label>
+            <input type="number" id="doctor_salary" name="doctor_salary" placeholder="50">
+        </div>
+        <br>
+        <div>
+            <input type="reset">
+        </div>
+        <br>
+        <div>
+            <input type="submit">
+        </div>
+    </form>
+</body>
+
+</html>

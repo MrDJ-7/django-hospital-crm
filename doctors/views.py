@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 from .models import Doctors
 from django.template.response import TemplateResponse
+from .doctor_service import Doctor_service
 import collections
 
 
@@ -31,17 +32,18 @@ import collections
 
 def index(request):
     # x = "Hello, world.! You're at the polls index."
-    a = Doctors.objects.all()
+    a = Doctor_service
     # b = Doctors.objects.get(id=1)
     # b = ""
     # for x in a:
     #     print(x.name)
-    return HttpResponse(a)
+    return HttpResponse(a.get_all_doctors())
 
 
 def get_doctor_view(request):
     s = ""
-    x = Doctors.objects.all()
+    a = Doctor_service
+    x = a.get_all_doctors()
     for t in x:
         s += str(t.id)
         s += " "
@@ -54,13 +56,21 @@ def get_doctor_view(request):
 
 
 def add_doctor(request):
-    pass
+    # print(request.POST)
+    print(Doctor_service.doctor_exists("cal", 2, "Grostreet 201"))
+
+    return HttpResponse()
+
+
+def get_add_doctor_form(request):
+    return render(request, "add_doctor.html")
 
 
 def get_doctors_json(request):
     docs = {}
     temp = ""
-    doctors_list = Doctors.objects.all()
+    a = Doctor_service
+    doctors_list = a.get_all_doctors()
     for i in doctors_list:
         temp = i.name + " " + str(i.age) + " " + i.address + " " + str(i.salary)
         docs[i.id] = temp
@@ -78,11 +88,9 @@ def doctors_page(request):
 
 
 def get_doctors(request):
-    doctors_l = Doctors.objects.all()
-    doctors_list = [
-        {"id": doctors_temp.id, "name": doctors_temp.name} for doctors_temp in doctors_l
-    ]
-    return JsonResponse(doctors_list, safe=False)
+    doctor_list = Doctor_service
+    # doctors_list.get_all_doctors_map()
+    return JsonResponse(doctor_list.get_all_doctors_map(), safe=False)
 
 
 # def add_task(request):
@@ -94,7 +102,11 @@ def get_doctors(request):
 
 def get_doctor_json(request, doctor_id):
     # id = 1
-    doctor_entry = Doctors.objects.get(pk=doctor_id)
+    a = Doctor_service
+    doctor_entry = a.get_doctor(doctor_id)
+    # to do: redo as serializer
+    #
+    #
     doctor_entry_l = [
         doctor_entry.name,
         str(doctor_entry.age),
