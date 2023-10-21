@@ -30,6 +30,7 @@ from django.urls import include, path
 urlpatterns = [
     path("doctors/", include("doctors.urls")),
     path("admin/", admin.site.urls),
+    path("cards/", include("cards.urls")),
 ]
 
 # from django.contrib import admin

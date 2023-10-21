@@ -1,12 +1,12 @@
-from .models import Doctors
+from .models import Cards, Patient
 
 
-class Doctor_service:
+class Card_service:
     def get_all_doctors():
-        return Doctors.objects.all()
+        return Cards.objects.all()
 
     def get_all_doctors_map():
-        doctors_l = Doctor_service.get_all_doctors()
+        doctors_l = Cards.get_all_doctors()
         doctors_list = [
             {"id": doctors_temp.id, "name": doctors_temp.name}
             for doctors_temp in doctors_l
@@ -15,7 +15,7 @@ class Doctor_service:
 
     def get_doctor(doctor_id):
         try:
-            doctor_entry = Doctors.objects.get(pk=doctor_id)
+            doctor_entry = Cards.objects.get(pk=doctor_id)
         except:
             raise ("Doctor id not found!")
 
@@ -24,7 +24,7 @@ class Doctor_service:
     def doctor_exists(doctor_name, doctor_age, doctor_adress):
         # django.db.models.query.QuerySet'
 
-        if Doctors.objects.all().filter(
+        if Cards.objects.all().filter(
             name=doctor_name,
             age=doctor_age,
             address=doctor_adress,
@@ -36,7 +36,7 @@ class Doctor_service:
         # print(type(doctors))
 
     def add_doctor_data(doctor_name, doctor_age, doctor_address, doctor_salary):
-        doctor = Doctors(
+        doctor = Cards(
             name=doctor_name,
             age=doctor_age,
             address=doctor_address,

@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    <div id="message">{{message}}</div>
     <form action="http://127.0.0.1:8000/doctors/add_doctor/" method="post">
         {% csrf_token %}
         <div>
@@ -22,7 +23,7 @@
         <br>
         <div>
             <label for="doctor_adress">Adress:</label>
-            <input type="text" id="doctor_adress" name="doctor_adress" placeholder="baker Streat 221b">
+            <input type="text" id="doctor_adress" name="doctor_address" placeholder="baker Streat 221b">
         </div>
         <br>
         <div>

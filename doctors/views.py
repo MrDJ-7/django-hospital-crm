@@ -56,10 +56,21 @@ def get_doctor_view(request):
 
 
 def add_doctor(request):
-    # print(request.POST)
-    print(Doctor_service.doctor_exists("cal", 2, "Grostreet 201"))
+    # print(type(request.POST))
+    name = request.POST.get("doctor_name")
+    age = request.POST.get("doctor_age")
+    addreass = request.POST.get("doctor_address")
+    salary = request.POST.get("doctor_salary")
+    if not Doctor_service.doctor_exists(name, age, addreass):
+        Doctor_service.add_doctor_data(name, age, addreass, salary)
+        message = "doctor succesfuly added"
+    else:
+        message = "doctor already exist"
 
-    return HttpResponse()
+    return render(request, "add_doctor.html", context={"message": message})
+    # print(Doctor_service.doctor_exists("cal", 2, "Grostreet 201"))
+
+    # return HttpResponse()
 
 
 def get_add_doctor_form(request):
@@ -117,7 +128,5 @@ def get_doctor_json(request, doctor_id):
 
 
 def doctor_page(request, doctor_id):
-    # doctor_id = request.GET.get("doctor_id", "")
     context = {"doctor_id": doctor_id}
-    # return TemplateResponse(request, "doctor.html", {doctor_id: doctor_id})
     return render(request, "doctor.html", context)
